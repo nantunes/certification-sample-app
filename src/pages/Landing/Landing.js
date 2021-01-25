@@ -1,21 +1,21 @@
+import React from "react";
+
+import { HvLink } from "@hv/uikit-react-core";
+
 import logo from "./logo.png";
-import "./Landing.css";
+
+import useStyles from "./styles";
 
 export default function Landing() {
+  const classes = useStyles();
+
   return (
-    <>
-      <img src={logo} className="Landing-logo" alt="logo" />
+    <div className={classes.root}>
+      <img src={logo} className={classes.logo} alt="logo" />
       <p>
         Edit the code in <code>src</code> and save to reload.
       </p>
-      <a
-        className="App-link"
-        href="https://lumada-design.github.io/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Use the HV UI Kit
-      </a>
-    </>
+      <HvLink route="https://lumada-design.github.io/">Use the HV UI Kit</HvLink>
+    </div>
   );
 }
