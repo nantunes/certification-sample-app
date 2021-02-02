@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 
 import { HvProvider, HvFooter } from "@hv/uikit-react-core";
 
@@ -22,6 +22,14 @@ const navigationData = [
   },
 ];
 
+const themeReducer = (state, action) => {
+  if (action === "switch") {
+    return state === "dawn" ? "wicked" : "dawn";
+  }
+
+  return state;
+};
+
 function App() {
   const classes = useStyles();
 
@@ -31,16 +39,23 @@ function App() {
     setMenuIsOpen((prev) => !prev);
   };
 
+  const [theme, changeTheme] = useReducer(themeReducer, "dawn");
+
   return (
-    <HvProvider>
+    <HvProvider uiKitTheme={theme}>
       <BrowserRouter>
-        <Header navigationData={navigationData} toogleBurguerMenu={toggleMenuIsOpen} />
+        <Header
+          navigationData={navigationData}
+          toogleBurguerMenu={toggleMenuIsOpen}
+          changeTheme={changeTheme}
+        />
 
         <main className={classes.main}>
           <VerticalNavigation
             navigationData={navigationData}
             isOpen={menuIsOpen}
             toggleOpen={toggleMenuIsOpen}
+            changeTheme={changeTheme}
           />
 
           <article className={classes.article}>

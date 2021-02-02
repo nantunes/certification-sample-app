@@ -1,12 +1,23 @@
 import React from "react";
 
-import { HvVerticalNavigation, HvVerticalNavigationTree } from "@hv/uikit-react-core";
+import { useMediaQuery, useTheme } from "@material-ui/core";
+
+import {
+  HvVerticalNavigation,
+  HvVerticalNavigationTree,
+  HvVerticalNavigationActions,
+  HvVerticalNavigationAction,
+} from "@hv/uikit-react-core";
+import { ThemeSwitcher } from "@hv/uikit-react-icons";
 
 import { useLocation, useHistory } from "react-router-dom";
 
-const VerticalNavigation = ({ navigationData, isOpen, toggleOpen }) => {
+const VerticalNavigation = ({ navigationData, isOpen, toggleOpen, changeTheme }) => {
   const location = useLocation();
   const history = useHistory();
+
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
 
   const handleChange = (_event, nav) => {
     history.push(nav.id);
@@ -27,6 +38,15 @@ const VerticalNavigation = ({ navigationData, isOpen, toggleOpen }) => {
         selected={location.pathname}
         onClick={handleChange}
       />
+      {isXs && (
+        <HvVerticalNavigationActions>
+          <HvVerticalNavigationAction
+            label="Change theme"
+            icon={<ThemeSwitcher />}
+            onClick={() => changeTheme("switch")}
+          />
+        </HvVerticalNavigationActions>
+      )}
     </HvVerticalNavigation>
   );
 };
