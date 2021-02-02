@@ -16,6 +16,10 @@ const navigationData = [
     id: "/",
     label: "Home",
   },
+  {
+    id: "/apply",
+    label: "Apply for job",
+  },
 ];
 
 function App() {
@@ -43,6 +47,10 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <Landing />
+              </Route>
+
+              <Route exact path="/apply">
+                <Apply />
               </Route>
 
               <Redirect to="/" />
